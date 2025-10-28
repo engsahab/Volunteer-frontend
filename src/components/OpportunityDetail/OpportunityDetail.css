@@ -1,0 +1,73 @@
+.opportunity-detail-container {
+  
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  
+  border-radius: 8px;
+  padding: 2.5rem;
+  max-width: 900px;
+  margin: 2rem auto;
+}
+
+.opportunity-detail-container h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+
+  color: #4a5a9b; 
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #eee; 
+  padding-bottom: 1rem;
+}
+
+.opportunity-info {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.opportunity-info strong {
+  color: #222; 
+}
+
+.opportunity-description {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #333; 
+  margin-bottom: 2rem;
+}
+
+.skills-section h3 {
+  font-size: 1.5rem;
+  color: #4a5a9b; 
+  margin-bottom: 1rem;
+  border-top: 2px solid #eee;
+  padding-top: 1.5rem;
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.skill-tag {
+
+  background-color: #eef0f6; 
+  color: #4a5a9b; 
+
+  
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.skill-tag:hover {
+  background-color: #4a5a9b; 
+  color: #fff;
+  transform: translateY(-2px);
+}
