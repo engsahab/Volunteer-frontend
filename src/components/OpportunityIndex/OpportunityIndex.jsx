@@ -45,7 +45,7 @@ function OpportunityIndex() {
         }
       </div> 
       
-    </div> // <-- 2. قم بإغلاق الـ div هنا
+    </div> 
   );
 }
 
