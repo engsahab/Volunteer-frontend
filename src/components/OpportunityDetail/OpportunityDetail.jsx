@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams, Link } from 'react-router';
+import { useParams, Link } from 'react-router-dom';
+
 import './OpportunityDetail.css'; 
+import SkillList from '../SkillList/SkillList';
+import ApplicationForm from '../ApplicationForm/ApplicationForm'; 
+
 
 function OpportunityDetail() {
   const { opportunityId } = useParams();
@@ -22,6 +26,14 @@ function OpportunityDetail() {
   useEffect(() => {
     getSingleOpportunity();
   }, [opportunityId]);
+  
+  function handleApplicationSubmit(newApplication) {
+    setOpportunity(prevOpportunity => ({
+      ...prevOpportunity,
+
+      applications: [...(prevOpportunity.applications || []), newApplication] 
+    }));
+  }
 
   if (errors) {
     return <h3>{errors}</h3>;
@@ -37,22 +49,12 @@ function OpportunityDetail() {
       </div>
 
       <p className="opportunity-description">{opportunity.description}</p>
+      
 
-      <div className="skills-section">
-        <h3>Skills Required:</h3>
-        
-        <div className="skills-list">
-          {
-            opportunity.skills && opportunity.skills.length > 0
-              ?
-              opportunity.skills.map(skill => {
-                return <span key={skill.id} className="skill-tag">{skill.name}</span>;
-              })
-              :
-              <p>No specific skills listed.</p>
-}
-        </div>
-      </div>
+      <SkillList 
+        opportunity={opportunity} 
+        setOpportunity={setOpportunity} 
+      />
 
       <div className="applications-section">
         <h3>Applications Received:</h3>
@@ -69,7 +71,13 @@ function OpportunityDetail() {
             <p>No applications submitted yet.</p>
         }
       </div>
-          <Link to={`/opportunities/${opportunity.id}/edit`} className="edit-link"> Edit {opportunity.title}</Link>
+      
+      <ApplicationForm 
+        opportunityId={opportunityId} 
+        onApplicationSubmit={handleApplicationSubmit}
+      />
+     
+      <Link to={`/opportunities/${opportunity.id}/edit`} className="edit-link"> Edit {opportunity.title}</Link>
     </div>
   );
 }
