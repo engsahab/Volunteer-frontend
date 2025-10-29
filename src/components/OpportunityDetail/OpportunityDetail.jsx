@@ -46,7 +46,6 @@ function OpportunityDetail() {
             opportunity.skills && opportunity.skills.length > 0
               ?
               opportunity.skills.map(skill => {
-                // 5. إضافة كلاس التاج
                 return <span key={skill.id} className="skill-tag">{skill.name}</span>;
               })
               :
