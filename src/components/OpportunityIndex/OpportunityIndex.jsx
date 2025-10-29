@@ -1,10 +1,20 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import './OpportunityIndex.css';
 
 function OpportunityIndex() {
+
   const [opportunities, setOpportunities] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  
+  function handleSearchSubmit(event) {
+    event.preventDefault();
+    console.log("Searching opportunities for:", searchTerm); 
+
+  }
+
 
   async function getAllOpportunities() {
     try {
@@ -20,32 +30,59 @@ function OpportunityIndex() {
     getAllOpportunities();
   }, []);
 
-  return (
-    
-    <div className="index-container"> 
-      
-      <h1>All Opportunities</h1>
+  
+  const filteredOpportunities = opportunities.filter(opportunity => {
 
+    const lowerCaseSearchTerm = searchTerm.toLowerCase();
+    const lowerCaseTitle = opportunity.title.toLowerCase();
+    const lowerCaseLocation = opportunity.location.toLowerCase();
+    
+
+    return lowerCaseTitle.includes(lowerCaseSearchTerm) || 
+           lowerCaseLocation.includes(lowerCaseSearchTerm);
+  });
+  
+
+  return (
+    <div className="index-container">
+      <h1>All Opportunities</h1>
+      <div className="index-search-container">
+        <form onSubmit={handleSearchSubmit}>
+          <input
+            type="search"
+            placeholder="Search by title, location..."
+            className="index-search-input"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <button type="submit" className="index-search-button">
+            Search
+          </button>
+        </form>
+      </div>
       <div className="opportunities-list">
-        {
-          opportunities.length
+      {
+          
+          filteredOpportunities.length 
             ?
-            opportunities.map((opportunity) => {
+            filteredOpportunities.map((opportunity) => { 
+
               return (
                 <Link to={`/opportunities/${opportunity.id}`} key={opportunity.id}>
                   <div className="opportunity-card">
                     <h2>{opportunity.title}</h2>
-                    <p>{opportunity.description.substring(0, 100)}...</p> 
+                    <p>{opportunity.description.substring(0, 100)}...</p>
                   </div>
                 </Link>
               );
             })
-            :
-            <h2>No Opportunities Found</h2>
+           : 
+            <h2>No opportunities found matching "{searchTerm}"</h2>
+
+           
         }
-      </div> 
-      
-    </div> 
+      </div>
+    </div>
   );
 }
 
