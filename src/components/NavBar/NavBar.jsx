@@ -1,9 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router';
-import './NavBar.css'; 
+import { Link } from 'react-router-dom';
+import './NavBar.css';
 
 function NavBar() {
   return (
+
     <nav className="navbar-container">
       <Link className="nav-link" to="/opportunities">
         All Opportunities
