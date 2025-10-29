@@ -71,3 +71,20 @@
   color: #fff;
   transform: translateY(-2px);
 }
+
+.edit-link {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.5rem 1rem;
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.edit-link:hover {
+  background-color: #e0e0e0;
+  color: #000;
+}

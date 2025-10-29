@@ -50,10 +50,26 @@ function OpportunityDetail() {
               })
               :
               <p>No specific skills listed.</p>
-          }
+}
         </div>
       </div>
-      
+
+      <div className="applications-section">
+        <h3>Applications Received:</h3>
+        {
+          opportunity.applications && opportunity.applications.length > 0
+            ?
+            opportunity.applications.map(app => (
+              <div key={app.id} className="application-item">
+                <p><strong>Status:</strong> {app.status}</p>
+                <p><strong>Applied At:</strong> {new Date(app.applied_at).toLocaleDateString()}</p>
+              </div>
+            ))
+            :
+            <p>No applications submitted yet.</p>
+        }
+      </div>
+          <Link to={`/opportunities/${opportunity.id}/edit`} className="edit-link"> Edit {opportunity.title}</Link>
     </div>
   );
 }
