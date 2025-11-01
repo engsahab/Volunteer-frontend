@@ -1,24 +1,22 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from 'axios'; 
 import { Link } from 'react-router-dom';
 import './OpportunityIndex.css';
 
-function OpportunityIndex() {
-
+function OpportunityIndex({ user }) { 
   const [opportunities, setOpportunities] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
-  
   function handleSearchSubmit(event) {
     event.preventDefault();
     console.log("Searching opportunities for:", searchTerm); 
-
   }
-
 
   async function getAllOpportunities() {
     try {
+      
       const response = await axios.get('http://127.0.0.1:8000/api/opportunities/');
+      
       console.log(response.data);
       setOpportunities(response.data);
     } catch (error) {
@@ -30,19 +28,15 @@ function OpportunityIndex() {
     getAllOpportunities();
   }, []);
 
-  
   const filteredOpportunities = opportunities.filter(opportunity => {
-
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
     const lowerCaseTitle = opportunity.title.toLowerCase();
     const lowerCaseLocation = opportunity.location.toLowerCase();
     
-
     return lowerCaseTitle.includes(lowerCaseSearchTerm) || 
            lowerCaseLocation.includes(lowerCaseSearchTerm);
   });
   
-
   return (
     <div className="index-container">
       <h1>All Opportunities</h1>
@@ -62,11 +56,9 @@ function OpportunityIndex() {
       </div>
       <div className="opportunities-list">
       {
-          
           filteredOpportunities.length 
             ?
             filteredOpportunities.map((opportunity) => { 
-
               return (
                 <Link to={`/opportunities/${opportunity.id}`} key={opportunity.id}>
                   <div className="opportunity-card">
@@ -78,12 +70,9 @@ function OpportunityIndex() {
             })
            : 
             <h2>No opportunities found matching "{searchTerm}"</h2>
-
-           
         }
       </div>
     </div>
   );
 }
-
 export default OpportunityIndex;

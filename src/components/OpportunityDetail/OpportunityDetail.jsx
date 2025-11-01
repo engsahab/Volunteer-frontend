@@ -1,27 +1,32 @@
 import { useEffect, useState } from 'react';
+import { authRequest } from '../../utils/auth';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 
 import './OpportunityDetail.css'; 
 import SkillList from '../SkillList/SkillList';
 import ApplicationForm from '../ApplicationForm/ApplicationForm'; 
+import '../ApplicationForm/ApplicationForm.css'; 
 
-
-function OpportunityDetail() {
+function OpportunityDetail({ user }) {
   const { opportunityId } = useParams();
   const [opportunity, setOpportunity] = useState({});
   const [errors, setErrors] = useState(null);
 
   async function getSingleOpportunity() {
-    try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/opportunities/${opportunityId}/`);
-      console.log(response.data);
-      setOpportunity(response.data);
-    } catch (error) {
-      console.log(error);
-      setErrors(error.message);
-    }
+  try {
+
+    const response = await authRequest({
+        method: 'get',
+        url: `http://127.0.0.1:8000/api/opportunities/${opportunityId}/`
+    });
+    console.log(response.data);
+    setOpportunity(response.data);
+  } catch (error) {
+    console.log(error);
+    setErrors(error.message);
   }
+}
 
   useEffect(() => {
     getSingleOpportunity();
@@ -54,6 +59,7 @@ function OpportunityDetail() {
       <SkillList 
         opportunity={opportunity} 
         setOpportunity={setOpportunity} 
+        user={user}
       />
 
       <div className="applications-section">
@@ -72,12 +78,16 @@ function OpportunityDetail() {
         }
       </div>
       
-      <ApplicationForm 
-        opportunityId={opportunityId} 
-        onApplicationSubmit={handleApplicationSubmit}
-      />
-     
-      <Link to={`/opportunities/${opportunity.id}/edit`} className="edit-link"> Edit {opportunity.title}</Link>
+           {user && !user.is_staff && (
+           <ApplicationForm 
+           opportunityId={opportunityId} 
+           onApplicationSubmit={handleApplicationSubmit}
+                                                         />
+          )}    
+     {user && user.is_staff && (
+        <Link to={`/opportunities/${opportunity.id}/edit`} className="edit-link"> Edit {opportunity.title}</Link>
+      )}
+    
     </div>
   );
 }
