@@ -3,18 +3,16 @@
   padding: 1rem 2rem;
   border-bottom: 1px solid #e0e0e0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  display: flex;
-  
-  
-  justify-content: center; 
-  gap: 3rem;
-
-
   margin-bottom: 2rem;
+  
+  
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
 }
 
 .nav-link {
-  font-size: 1.1rem; 
+  font-size: 1.1rem;
   font-weight: 500;
   color: #4a5a9b;
   text-decoration: none;
@@ -23,5 +21,12 @@
 
 .nav-link:hover {
   color: #2a3a7b;
+}
+
+
+.auth-links {
+  margin-left: auto; 
+  display: flex;
+  gap: 1.5rem; 
 }
 
