@@ -1,0 +1,92 @@
+.admin-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.admin-dashboard h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #4a5a9b;
+}
+
+.applications-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.applications-table th,
+.applications-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.applications-table th {
+  background-color: #f4f7f6;
+  font-weight: 600;
+  color: #333;
+}
+
+.applications-table td {
+  color: #555;
+}
+
+.applications-table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.status-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.status-pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-accepted {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-rejected {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-accept, .btn-reject {
+    padding: 0.4rem 0.8rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    font-weight: 500;
+}
+
+.btn-accept {
+    background-color: #28a745;
+}
+.btn-accept:hover {
+    background-color: #218838;
+}
+
+.btn-reject {
+    background-color: #dc3545;
+}
+.btn-reject:hover {
+    background-color: #c82333;
+}

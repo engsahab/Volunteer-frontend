@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { authRequest } from '../../utils/auth';
 import axios from 'axios';
 import './ApplicationForm.css'; 
 
@@ -16,22 +17,22 @@ function ApplicationForm({ opportunityId, onApplicationSubmit }) {
     setError(null);
     try {
       const formData = { status: status }; 
-      const response = await axios.post(
-        `http://127.0.0.1:8000/api/opportunities/${opportunityId}/applications/`, 
-        formData
-      );
+     const response = await authRequest({ 
+        method: 'post', 
+        url: `http://127.0.0.1:8000/api/opportunities/${opportunityId}/applications/`, 
+        data: formData
+      });
+
 
       if (response.status === 201) {
         onApplicationSubmit(response.data);
       }
     } catch (err) {
-      console.error("Error submitting application:", err);
-      setError("Failed to submit application. Please try again.");
+      
     } finally {
       setIsLoading(false);
     }
   }
-
   return (
     <form onSubmit={handleSubmit} className="application-form">
       <h4>Apply Now!</h4>
