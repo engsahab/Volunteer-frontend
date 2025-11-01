@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom'; 
 import './OpportunityForm.css';
+import { authRequest } from '../../utils/auth'; 
 
 function OpportunityForm() {
   const navigate = useNavigate();
-  const { opportunityId } = useParams();
+  const { opportunityId } = useParams(); 
 
   const [formData, setFormData] = useState({
     title: '',
@@ -13,31 +14,24 @@ function OpportunityForm() {
     date: '',
     location: ''
   });
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);      
 
   
   useEffect(() => {
-
     if (opportunityId) {
-      setIsLoading(true);
       async function fetchOpportunity() {
         try {
-          
-          const response = await axios.get(`http://127.0.0.1:8000/api/opportunities/${opportunityId}/`);
-
-          setFormData(response.data);
-          setError(null);
-        } catch (err) {
-          console.error("Error fetching opportunity:", err);
-          setError("Could not load opportunity data."); 
-        } finally {
-            setIsLoading(false);
+          const response = await authRequest({ 
+            method: 'get',
+            url: `http://127.0.0.1:8000/api/opportunities/${opportunityId}/`
+          });
+          setFormData(response.data); 
+        } catch (error) {
+          console.error("Error fetching opportunity:", error);
         }
       }
       fetchOpportunity();
     }
-  }, [opportunityId]); 
+  }, [opportunityId]);
 
   function handleChange(event) {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -46,45 +40,39 @@ function OpportunityForm() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    setIsLoading(true);
-    setError(null);
     try {
       let response;
       if (opportunityId) {
-
-        response = await axios.put(`http://127.0.0.1:8000/api/opportunities/${opportunityId}/`, formData);
+        
+        response = await authRequest({
+          method: 'put',
+          url: `http://127.0.0.1:8000/api/opportunities/${opportunityId}/`,
+          data: formData
+        });
       } else {
-
-        response = await axios.post('http://127.0.0.1:8000/api/opportunities/', formData);
+        
+        response = await authRequest({
+          method: 'post',
+          url: 'http://127.0.0.1:8000/api/opportunities/',
+          data: formData
+        });
       }
 
-      
       if (response.status === 200 || response.status === 201) {
           navigate(`/opportunities/${response.data.id}`); 
-      } else {
-          setError("An unexpected error occurred.");
       }
-
-    } catch (err) {
-      console.error("Error submitting form:", err);
-      setError("Failed to save opportunity. Please check your input.");
-    } finally {
-        setIsLoading(false);
+    } catch (error) {
+      console.error("Error submitting form:", error);
     }
-  }
-
-  if (isLoading && opportunityId) {
-      return <p>Loading opportunity data...</p>;
   }
 
   return (
     <div className="form-container">
+     
       <h1>{opportunityId ? "Edit Opportunity" : "Add an Opportunity"}</h1>
       
-      {error && <p className="error-message">{error}</p>} 
-
       <form onSubmit={handleSubmit}>
-
+       
         <div className="form-group">
           <label htmlFor="title">Title</label>
           <input value={formData.title} onChange={handleChange} id="title" name="title" required />
@@ -101,9 +89,7 @@ function OpportunityForm() {
           <label htmlFor="description">Description</label>
           <textarea value={formData.description} onChange={handleChange} id="description" name="description" required />
         </div>
-        <button type="submit" className="submit-btn" disabled={isLoading}>
-            {isLoading ? "Saving..." : "Submit"}
-        </button>
+        <button type="submit" className="submit-btn">Submit</button>
       </form>
     </div>
   );
