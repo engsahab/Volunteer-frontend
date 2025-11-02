@@ -67,8 +67,8 @@ function AdminDashboard() {
           {applications.length > 0 ? (
             applications.map(app => (
               <tr key={app.id}>
-                
-                <td>{app.profile ? app.profile.user.username : 'N/A'}</td>
+               
+                <td>{app.profile && app.profile.user ? app.profile.user.username : 'N/A'}</td>
                 <td>{app.opportunity ? app.opportunity.title : 'N/A'}</td>
                 <td>
 
