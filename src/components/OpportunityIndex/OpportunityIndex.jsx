@@ -39,6 +39,10 @@ function OpportunityIndex({ user }) {
   
   return (
     <div className="index-container">
+   <div className="welcome-hero">
+      <h1>Find Your Next Opportunity to Make an Impact</h1>
+      <p>Welcome to our Volunteer Hub. Explore meaningful roles, find an opportunity that interests you, and apply today to make a difference in our community.</p>
+       </div>
       <h1>All Opportunities</h1>
       <div className="index-search-container">
         <form onSubmit={handleSearchSubmit}>
