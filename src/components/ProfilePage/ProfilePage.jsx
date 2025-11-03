@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import './ProfilePage.css';
+import '../ProfilePage/ProfilePage.css';
 import { authRequest } from '../../utils/auth';
-import ProfileSkillManager from './ProfileSkillManager'; 
+
 
 function ProfilePage() {
   
@@ -122,10 +122,6 @@ function ProfilePage() {
       </form>
 
 
-      <ProfileSkillManager 
-        profile={profileData} 
-        setProfileData={setProfileData} 
-      />
     </div>
   );
 }

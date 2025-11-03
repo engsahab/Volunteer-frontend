@@ -86,8 +86,11 @@ function OpportunityDetail({ user }) {
 
 
         {user && !user.is_staff && (
+          
           <div className="applications-section">
-            <h3>Applications Received:</h3>
+            
+            
+            <h3>Your Submitted Applications:</h3>
             {
               opportunity.applications && opportunity.applications.length > 0
                 ?
@@ -100,15 +103,15 @@ function OpportunityDetail({ user }) {
                 :
                 <p>No applications submitted yet.</p>
             }
+
+
+            <ApplicationForm 
+             opportunityId={opportunityId} 
+             onApplicationSubmit={handleApplicationSubmit}
+            />
           </div>
-      )}
-      
-           {user && !user.is_staff && (
-           <ApplicationForm 
-           opportunityId={opportunityId} 
-           onApplicationSubmit={handleApplicationSubmit}
-                                                         />
-          )}    
+        )}
+       
     {user && user.is_staff && (
 
         <div className="admin-actions">
