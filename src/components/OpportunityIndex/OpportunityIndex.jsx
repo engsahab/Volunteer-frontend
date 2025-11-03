@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import axios from 'axios'; 
 import { Link } from 'react-router-dom';
 import './OpportunityIndex.css';
+import HeroImage from '../../assets/hero-image.jpg';
+
+
 
 function OpportunityIndex({ user }) { 
   const [opportunities, setOpportunities] = useState([]);
@@ -40,7 +43,7 @@ function OpportunityIndex({ user }) {
   return (
     <div className="index-container">
       
-      <div className="welcome-hero">
+     <div className={`welcome-hero ${!user ? 'guest-hero' : ''}`}>
         <div className="hero-content">
           {user ? (
             <>
@@ -51,11 +54,19 @@ function OpportunityIndex({ user }) {
           ) : (
             <>
 
-              <h1>Find Your Next Opportunity to Make an Impact</h1>
-              <p>Welcome to our Volunteer Hub. Explore meaningful roles, find an opportunity that interests you, and apply today to make a difference in our community.</p>
+             <div className="hero-content">
+                <h1>Make an Impact in Your Community</h1>
+                <p>Register now to explore meaningful volunteer opportunities and start making a difference today.</p>
+                <Link to="/signup" className="hero-cta-button">Register Now</Link>
+              </div>
+
+              <div className="hero-image-container">
+                <img src={HeroImage} alt="Community volunteers working on a puzzle" className="hero-image" />
+              </div>
             </>
           )}
-        </div>
+        
+      </div>
         
        
       </div>
