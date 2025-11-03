@@ -12,7 +12,9 @@ function OpportunityForm() {
     title: '',
     description: '',
     date: '',
-    location: ''
+    location: '',
+    specialization: '',
+    skills_list:''
   });
 
   
@@ -80,6 +82,14 @@ function OpportunityForm() {
         <div className="form-group">
           <label htmlFor="location">Location</label>
           <input value={formData.location} onChange={handleChange} id="location" name="location" required />
+        </div>
+         <div className="form-group">
+          <label htmlFor="specialization">Required Specialization (Optional)</label>
+          <input value={formData.specialization || ''} onChange={handleChange} id="specialization" name="specialization" />
+        </div>
+         <div className="form-group"> <label htmlFor="skills_list">Required Skills (List them separated by comma)</label><textarea 
+            value={formData.skills_list || ''} onChange={handleChange} id="skills_list" name="skills_list" placeholder="e.g., Python, Excel, First Aid"
+          />
         </div>
         <div className="form-group">
           <label htmlFor="date">Date</label>

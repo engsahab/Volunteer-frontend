@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { authRequest } from '../../utils/auth';
+import { Link } from 'react-router-dom';
 import './AdminDashboard.css'; 
 
 function AdminDashboard() {
@@ -68,7 +69,15 @@ function AdminDashboard() {
             applications.map(app => (
               <tr key={app.id}>
                
-                <td>{app.profile && app.profile.user ? app.profile.user.username : 'N/A'}</td>
+               <td>
+                  {app.profile && app.profile.user ? (
+                    <Link to={`/admin/profile/${app.profile.id}`} className="applicant-link">
+                      {app.profile.user.username}
+                    </Link>
+                  ) : (
+                    'N/A'
+                  )}
+                </td>
                 <td>{app.opportunity ? app.opportunity.title : 'N/A'}</td>
                 <td>
 

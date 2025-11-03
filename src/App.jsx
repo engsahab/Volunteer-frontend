@@ -14,6 +14,7 @@ import ProfilePage from './components/ProfilePage/ProfilePage';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import AdminProtectedRoute from './components/AdminProtectedRoute/AdminProtectedRoute'; 
 import AdminDashboard from './components/AdminDashboard/AdminDashboard';
+import AdminProfileView from './components/AdminProfileView/AdminProfileView';
 
 
 function App() {
@@ -57,19 +58,18 @@ function App() {
 
 
         <Route element={<AdminProtectedRoute user={user} />}>
-          <Route path='/opportunities/new' element={<OpportunityForm />} />
-          <Route path='/opportunities/:opportunityId/edit' element={<OpportunityForm />} />
-          
-          
-          <Route path='/admin/dashboard' element={<AdminDashboard />} />
-        </Route>
+        <Route path='/opportunities/new' element={<OpportunityForm />} />
+        <Route path='/opportunities/:opportunityId/edit' element={<OpportunityForm />} />    
+        <Route path='/admin/dashboard' element={<AdminDashboard />} />
         
+        <Route path='/admin/profile/:profileId' element={<AdminProfileView />} />
+        </Route>
         
         <Route element={<ProtectedRoute user={user} />}>
-          <Route path='/profile' element={<ProfilePage />} />
+        <Route path='/profile' element={<ProfilePage />} />
         </Route>
         
-      </Routes>
+    </Routes>
     </Router>
   );
 }

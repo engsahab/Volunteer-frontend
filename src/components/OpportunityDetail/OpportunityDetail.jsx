@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { authRequest } from '../../utils/auth';
 import axios from 'axios';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
 import './OpportunityDetail.css'; 
-import SkillList from '../SkillList/SkillList';
 import ApplicationForm from '../ApplicationForm/ApplicationForm'; 
 import '../ApplicationForm/ApplicationForm.css'; 
 
@@ -12,6 +11,10 @@ function OpportunityDetail({ user }) {
   const { opportunityId } = useParams();
   const [opportunity, setOpportunity] = useState({});
   const [errors, setErrors] = useState(null);
+
+  const navigate = useNavigate();
+
+
 
   async function getSingleOpportunity() {
   try {
@@ -40,6 +43,26 @@ function OpportunityDetail({ user }) {
     }));
   }
 
+
+  async function handleDelete() {
+    
+    if (!window.confirm("Are you sure you want to delete this opportunity?")) {
+      return; 
+    }
+
+    try {
+      await authRequest({
+        method: 'delete',
+        url: `http://127.0.0.1:8000/api/opportunities/${opportunityId}/`
+      });
+
+      navigate('/opportunities');
+    } catch (error) {
+      console.error("Error deleting opportunity:", error);
+      setErrors("Failed to delete the opportunity.");
+    }
+  }
+
   if (errors) {
     return <h3>{errors}</h3>;
   }
@@ -56,27 +79,29 @@ function OpportunityDetail({ user }) {
       <p className="opportunity-description">{opportunity.description}</p>
       
 
-      <SkillList 
-        opportunity={opportunity} 
-        setOpportunity={setOpportunity} 
-        user={user}
-      />
-
-      <div className="applications-section">
-        <h3>Applications Received:</h3>
-        {
-          opportunity.applications && opportunity.applications.length > 0
-            ?
-            opportunity.applications.map(app => (
-              <div key={app.id} className="application-item">
-                <p><strong>Status:</strong> {app.status}</p>
-                <p><strong>Applied At:</strong> {new Date(app.applied_at).toLocaleDateString()}</p>
-              </div>
-            ))
-            :
-            <p>No applications submitted yet.</p>
-        }
+       <div className="skills-section">
+        <h3>Required Skills:</h3>
+        <p>{opportunity.skills_list || 'No specific skills required.'}</p>
       </div>
+
+
+        {user && !user.is_staff && (
+          <div className="applications-section">
+            <h3>Applications Received:</h3>
+            {
+              opportunity.applications && opportunity.applications.length > 0
+                ?
+                opportunity.applications.map(app => (
+                  <div key={app.id} className="application-item">
+                    <p><strong>Status:</strong> {app.status}</p>
+                    <p><strong>Applied At:</strong> {new Date(app.applied_at).toLocaleDateString()}</p>
+                  </div>
+                ))
+                :
+                <p>No applications submitted yet.</p>
+            }
+          </div>
+      )}
       
            {user && !user.is_staff && (
            <ApplicationForm 
@@ -84,8 +109,19 @@ function OpportunityDetail({ user }) {
            onApplicationSubmit={handleApplicationSubmit}
                                                          />
           )}    
-     {user && user.is_staff && (
-        <Link to={`/opportunities/${opportunity.id}/edit`} className="edit-link"> Edit {opportunity.title}</Link>
+    {user && user.is_staff && (
+
+        <div className="admin-actions">
+         
+          <Link to={`/opportunities/${opportunity.id}/edit`} className="edit-link"> 
+            Edit {opportunity.title}
+          </Link>
+          
+
+          <button onClick={handleDelete} className="delete-button">
+            Delete Opportunity
+          </button>
+        </div>
       )}
     
     </div>

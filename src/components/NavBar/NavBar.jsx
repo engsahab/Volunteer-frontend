@@ -4,8 +4,8 @@ import './NavBar.css';
 import LogOutButton from '../LogOutButton/LogOutButton';
 
 
-function NavBar({ user, setUser }) { 
-  return (
+function NavBar({ user, setUser }) {
+return (
     <nav className="navbar-container">
      
       <Link className="nav-link" to="/opportunities">
@@ -14,7 +14,7 @@ function NavBar({ user, setUser }) {
       
       {user ? (
         <>
-
+          
           {user.is_staff && (
             <>
               <Link className="nav-link" to="/opportunities/new">
@@ -26,19 +26,23 @@ function NavBar({ user, setUser }) {
             </>
           )}
           
-           
 
-          {user && !user.is_staff && (
-            <Link className="nav-link" to="/profile">
-              My Profile
-           </Link>
-          )}
+          <div className="user-actions"> 
 
-          <LogOutButton setUser={setUser} /> 
+
+            {user && !user.is_staff && (
+              <Link className="nav-link" to="/profile">
+                My Profile
+             </Link>
+            )}
+            
+
+            <LogOutButton setUser={setUser} /> 
+          </div> 
         </>
       ) : (
         <>
-          
+         
           <div className="auth-links">
             <Link className="nav-link" to="/login">
               Login

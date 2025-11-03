@@ -28,7 +28,13 @@ function ApplicationForm({ opportunityId, onApplicationSubmit }) {
         onApplicationSubmit(response.data);
       }
     } catch (err) {
-      
+      if (err.response && err.response.data && err.response.data.error) {
+
+        setError(err.response.data.error);
+      } else {
+
+        setError("An error occurred submitting the application.");
+      }
     } finally {
       setIsLoading(false);
     }
