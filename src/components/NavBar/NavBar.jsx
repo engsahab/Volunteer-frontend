@@ -11,7 +11,8 @@ return (
       <Link className="nav-link" to="/opportunities">
         All Opportunities
       </Link>
-      
+
+
       {user ? (
         <>
           
@@ -29,6 +30,9 @@ return (
 
           <div className="user-actions"> 
 
+         <Link className="nav-link" to="/contact">
+          Contact Us
+         </Link>
 
             {user && !user.is_staff && (
               <Link className="nav-link" to="/profile">
@@ -50,6 +54,9 @@ return (
             <Link className="nav-link" to="/signup">
               Sign Up
             </Link>
+            <Link className="nav-link" to="/contact">
+            Contact Us
+           </Link>
           </div>
         </>
       )}
