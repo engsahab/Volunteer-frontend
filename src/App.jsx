@@ -50,24 +50,26 @@ function App() {
       <NavBar user={user} setUser={setUser} /> 
       
       <Routes>
-        <Route path='/' element={<Navigate to='/opportunities' replace />} />
 
+        <Route path='/' element={<Navigate to='/opportunities' replace />} />
 
         <Route path='/opportunities' element={<OpportunityIndex user={user} />} />
         <Route path='/opportunities/:opportunityId' element={<OpportunityDetail user={user} />} /> 
+
         <Route path='/signup' element={<Signup />} />
         <Route path='/login' element={<Login setUser={setUser} />} />
-
         <Route path='/contact' element={<ContactPage />} />
 
+
+        
         <Route element={<AdminProtectedRoute user={user} />}>
         <Route path='/opportunities/new' element={<OpportunityForm />} />
         <Route path='/opportunities/:opportunityId/edit' element={<OpportunityForm />} />    
         <Route path='/admin/dashboard' element={<AdminDashboard />} />
-        
         <Route path='/admin/profile/:profileId' element={<AdminProfileView />} />
         </Route>
-        
+    
+
         <Route element={<ProtectedRoute user={user} />}>
         <Route path='/profile' element={<ProfilePage />} />
         </Route>

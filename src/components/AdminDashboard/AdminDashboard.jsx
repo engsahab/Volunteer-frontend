@@ -78,7 +78,7 @@ function AdminDashboard() {
                     'N/A'
                   )}
                 </td>
-                <td>{app.opportunity ? app.opportunity.title : 'N/A'}</td>
+               <td>{app.opportunity ? app.opportunity : 'N/A'}</td>
                 <td>
 
                   <span className={`status-badge status-${app.status}`}>

@@ -90,3 +90,16 @@
 .btn-reject:hover {
     background-color: #c82333;
 }
+
+
+.applicant-link {
+  color: #4a5a9b;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.applicant-link:hover {
+  color: #2a3a7b;
+  text-decoration: underline;
+}

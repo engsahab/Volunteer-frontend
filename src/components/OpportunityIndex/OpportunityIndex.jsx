@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { authRequest } from '../../utils/auth';
 import axios from 'axios'; 
 import { Link } from 'react-router-dom';
 import './OpportunityIndex.css';
@@ -19,8 +20,6 @@ function OpportunityIndex({ user }) {
     try {
       
       const response = await axios.get('http://127.0.0.1:8000/api/opportunities/');
-      
-      console.log(response.data);
       setOpportunities(response.data);
     } catch (error) {
       console.error("Error fetching opportunities:", error);
@@ -28,8 +27,10 @@ function OpportunityIndex({ user }) {
   }
 
   useEffect(() => {
+    
     getAllOpportunities();
   }, []);
+
 
   const filteredOpportunities = opportunities.filter(opportunity => {
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
@@ -40,70 +41,83 @@ function OpportunityIndex({ user }) {
            lowerCaseLocation.includes(lowerCaseSearchTerm);
   });
   
-  return (
-    <div className="index-container">
-      
+ 
+return (
+    <> 
+     
      <div className={`welcome-hero ${!user ? 'guest-hero' : ''}`}>
-        <div className="hero-content">
+        
           {user ? (
             <>
              
-              <h1>Welcome Back, {user.username}!</h1>
+              <h1>Welcome Back, {user.username}</h1>
               <p>Thank you for being part of our community. Your next opportunity to make an impact is waiting for you below.</p>
             </>
           ) : (
             <>
-
-             <div className="hero-content">
+              
+              <div className="hero-content">
                 <h1>Make an Impact in Your Community</h1>
-                <p>Register now to explore meaningful volunteer opportunities and start making a difference today.</p>
-                <Link to="/signup" className="hero-cta-button">Register Now</Link>
+                <p>Apply now to explore meaningful volunteer opportunities and start making a difference today.</p>
+                <div className="hero-button-container">
+                  <Link to="/signup" className="hero-cta-button">Apply Now</Link>
+                </div>
               </div>
-
+              
               <div className="hero-image-container">
                 <img src={HeroImage} alt="Community volunteers working on a puzzle" className="hero-image" />
               </div>
             </>
           )}
-        
-      </div>
-        
        
-      </div>
-      <h1>All Opportunities</h1>
-      <div className="index-search-container">
-        <form onSubmit={handleSearchSubmit}>
-          <input
-            type="search"
-            placeholder="Search by title, location..."
-            className="index-search-input"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <button type="submit" className="index-search-button">
-            Search
-          </button>
-        </form>
-      </div>
-      <div className="opportunities-list">
-      {
-          filteredOpportunities.length 
-            ?
-            filteredOpportunities.map((opportunity) => { 
-              return (
-                <Link to={`/opportunities/${opportunity.id}`} key={opportunity.id}>
-                  <div className="opportunity-card">
-                    <h2>{opportunity.title}</h2>
-                    <p>{opportunity.description.substring(0, 100)}...</p>
-                  </div>
-                </Link>
-              );
-            })
-           : 
-            <h2>No opportunities found matching "{searchTerm}"</h2>
-        }
-      </div>
-    </div>
+     </div> 
+
+
+
+      <div className="opportunities-container">
+        
+        <h1>All Opportunities</h1>
+        
+        {user && (
+          <div className="index-search-container">
+            <form onSubmit={handleSearchSubmit}>
+              <input
+                type="search"
+                placeholder="Search by title, location..."
+                className="index-search-input"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <button type="submit" className="index-search-button">
+                Search
+              </button>
+            </form>
+          </div>
+        )}
+
+        <div className="opportunities-list">
+        {
+            filteredOpportunities.length 
+              ?
+              filteredOpportunities.map((opportunity) => { 
+                return (
+                  <Link to={`/opportunities/${opportunity.id}`} key={opportunity.id} className="opportunity-card-link">
+                    <div className="opportunity-card">
+                      <h2>{opportunity.title}</h2>
+                      <p>{opportunity.description.substring(0, 100)}...</p>
+                    </div>
+                  </Link>
+                );
+              })
+             
+            :
+            <p></p>
+          }
+        </div>
+      </div> 
+      
+    </> 
   );
 }
+
 export default OpportunityIndex;

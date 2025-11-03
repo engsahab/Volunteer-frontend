@@ -1,6 +1,6 @@
 .navbar-container {
   background-color: #ffffff;
-  padding: 1rem 2rem;
+  padding: 1.25rem 2rem;
   border-bottom: 1px solid #e0e0e0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   margin-bottom: 2rem;
@@ -17,12 +17,21 @@
   color: #4a5a9b;
   text-decoration: none;
   transition: color 0.2s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  background-color: #f4f7f6;
+  border: 1px solid #e0e0e0;
+  transition: all 0.2s ease;
+
 }
 
 .nav-link:hover {
-  color: #2a3a7b;
+  color: #ffffff; 
+  background-color: #4a5a9b;
+  border-color: #4a5a9b;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
 }
-
 
 .auth-links {
   margin-left: auto; 

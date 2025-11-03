@@ -18,11 +18,9 @@ function OpportunityDetail({ user }) {
 
   async function getSingleOpportunity() {
   try {
-
-    const response = await authRequest({
-        method: 'get',
-        url: `http://127.0.0.1:8000/api/opportunities/${opportunityId}/`
-    });
+    const response = await axios.get(
+        `http://127.0.0.1:8000/api/opportunities/${opportunityId}/`
+    );
     console.log(response.data);
     setOpportunity(response.data);
   } catch (error) {
