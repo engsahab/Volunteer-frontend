@@ -1,16 +1,46 @@
-# React + Vite
+# Volunteer Management System - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 1. Project & Repository Description
 
-Currently, two official plugins are available:
+This repository contains the **Frontend** for the Volunteer Management System project. Built with React, this application provides a dynamic and responsive user interface (UI) for both volunteers and administrators.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+It connects to the Django (Backend) API to handle all data. The application features:
+* **For Guests:** A full-page hero banner and the ability to browse opportunities.
+* **For Volunteers:** Secure registration/login, profile management, and the ability to apply for opportunities.
+* **For Admins:** A protected admin dashboard to manage all applications and users.
 
-## React Compiler
+## 2. Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* **React:** Used for building all UI components.
+* **React Router:** For client-side routing, including protected routes for users and admins.
+* **Axios:** For handling all API requests to the backend.
+* **JWT Decode:** For reading user data from the JWT token.
+* **CSS:** For all custom styling, and designs in the application.
 
-## Expanding the ESLint configuration
+## 3. Project Links
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+* **Back End Repository:**  https://github.com/engsahab/volunteer-backend
+
+## 4. Installation Instructions
+
+To run this project locally, follow these steps:
+
+1.  Clone the repository: `git clone (https://github.com/engsahab/Volunteer-frontend)`
+2.  Navigate to the directory: `cd volunteer-frontend`
+3.  Install dependencies: `npm install`
+4.  Run the application: `npm run dev`
+5.  **Important:** Ensure the backend server is running on `http://127.0.0.1:8000` for the API requests to work.
+
+## 5. IceBox Features (Future Plans)
+
+Features I plan to implement in the future:
+
+* **Withdraw Application:**
+    * **Description:** Allow a registered user to "withdraw" (Delete) their own application if it is still "pending" (implements User Story #8).
+    * **Status:** The backend API endpoint (`DELETE /api/applications/<id>/`) is already built and functional.
+
+* **Advanced UI Filtering:**
+    * **Description:** Add UI controls (like dropdowns or checkboxes) to the search bar to allow users to filter opportunities by `location` or `specialization`.
+
+* **Profile View/Edit Mode:**
+    * **Description:** Refactor the `ProfilePage` to have a "View Mode" (displaying text) and an "Edit Mode" (displaying the form), rather than always showing the form.
